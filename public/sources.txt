@@ -1,0 +1,3 @@
+Images:
+favicon.ico
+https://cdn4.iconfinder.com/data/icons/education-77/512/book_bookmark_outline_literature-512.png

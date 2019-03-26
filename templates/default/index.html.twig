@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Everything But The Book{% endblock %}
+
+{% block home %}navbar-active{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/default.css">
+{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <a href="{{ path('homepage') }}"><img src="/images/banner_home.png" class="img-fluid" alt="homepage"></a>
+    </div>
+{% endblock %}

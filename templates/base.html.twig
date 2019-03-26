@@ -2,11 +2,63 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="shortcut icon" href="/images/favicon.ico"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/navbar.css">
+
         {% block stylesheets %}{% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
+        <center><nav id="navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="navbar-brand" href="{{ path('homepage') }}">
+                    <img src="/images/logo.png" id="navbar-logo" class="d-inline-block align-top" alt="navbar logo">
+                </a>
+
+                <div class="container">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a id="{% block home %}{% endblock %}" class="nav-link" href="{{ path('homepage') }}">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="{% block about %}{% endblock %}" class="nav-link" href="{{ path('about') }}">ABOUT US</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="{% block sitemap %}{% endblock %}" class="nav-link" href="{{ path('sitemap') }}">SITEMAP</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-outline-dark">Login</button>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <a href="https://github.com/limsukjing/book-auction-website" target="_blank" class="btn btn-outline-dark" role="button">View on GitHub</a>
+                </div>
+            </div>
+        </nav></center>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
         {% block javascripts %}{% endblock %}
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
 </html>

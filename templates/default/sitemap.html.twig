@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Sitemap{% endblock %}
+
+{% block sitemap %}navbar-active{% endblock %}
+
+{% block stylesheets %}
+   <link rel="stylesheet" href="/css/default.css">
+{% endblock %}
+
+{% block body %}
+   <div class="header">
+      <a href="{{ path('sitemap') }}"><img src="/images/banner_sitemap.png" class="img-fluid" alt="sitemap page"></a>
+   </div>
+{% endblock %}

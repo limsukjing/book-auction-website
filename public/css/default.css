@@ -1,0 +1,28 @@
+.header {
+    padding-top: 100px;
+}
+
+.content h3 {
+    padding-top: 30px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 3px solid #DCDCDC;
+    line-height:0.1em;
+    margin: 10px 0 20px;
+}
+
+.content h3 span {
+    background: #FFFFFF;
+    padding: 0 50px;
+}
+
+.content p {
+    padding: 30px;
+    text-align: justify;
+}
+
+#about-location {
+    padding: 30px;
+    text-align: center;
+}
+

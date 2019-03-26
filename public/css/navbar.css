@@ -1,0 +1,22 @@
+#navbar {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #DCDCDC;
+}
+
+#navbar-logo {
+    height: 70%;
+    width: 70%;
+    padding-left: 20px;
+}
+
+.nav-item {
+    padding: 20px;
+}
+
+#navbar-active {
+    color: #FFA500;
+}
+
+.btn-toolbar {
+    padding-left: 85px;
+}

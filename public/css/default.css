@@ -1,19 +1,19 @@
 .header {
-    padding-top: 100px;
+    padding-top: 20px;
 }
 
 .content h3 {
-    padding-top: 30px;
+    padding-top: 60px;
     width: 100%;
     text-align: center;
-    border-bottom: 3px solid #DCDCDC;
+    border-bottom: 5px dotted #DCDCDC;
     line-height:0.1em;
     margin: 10px 0 20px;
 }
 
 .content h3 span {
     background: #FFFFFF;
-    padding: 0 50px;
+    padding: 0 40px;
 }
 
 .content p {

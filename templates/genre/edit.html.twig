@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Edit {{ genre.type }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/content.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>EDIT GENRE #{{ genre.id }} - {{ genre.type|upper }}</span></h3>
+
+        <div class="genre-crud">
+            <a href="{{ path('genre_show', {'id': genre.id}) }}" class="btn-right"><<< Discard changes</a>
+
+            <div class="partial-template">
+                {{ include('genre/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('genre/_delete_form.html.twig') }}
+            </div>
+            <!--partial template-->
+        </div>
+        <!--genre crud-->
+    </div>
+    <!--genre content-->
+{% endblock %}

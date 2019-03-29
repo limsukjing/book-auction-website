@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - New Book{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/content.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>CREATE NEW BOOK</span></h3>
+
+        <div class="book-crud">
+            <a href="{{ path('book_index') }}" class="btn-right"><<< Discard changes</a>
+
+            <div class="partial-template">
+                {{ include('book/_form.html.twig') }}
+            </div>
+            <!--partial template-->
+        </div>
+        <!--genre crud-->
+    </div>
+    <!--genre content-->
+{% endblock %}

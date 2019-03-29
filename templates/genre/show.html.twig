@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - {{ genre.type }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/content.css">
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>GENRE #{{ genre.id }} - {{ genre.type|upper }}</span></h3>
+
+        <div class="genre-crud">
+            <a href="{{ path('genre_index') }}" class="btn-right"><<< Back to list</a>
+
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <td>{{ genre.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ genre.type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td><img src="/images/{{ genre.image }}" class="genre-img img-fluid" width="300" alt="{{ genre.image }}"></td>
+                    </tr>
+                    <tr>
+                        <th>Action</th>
+                        <td><a href="{{ path('genre_edit', {'id': genre.id}) }}">Edit / Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--genre crud-->
+    </div>
+    <!--genre content-->
+{% endblock %}

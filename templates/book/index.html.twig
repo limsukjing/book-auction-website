@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Books{% endblock %}
+
+{% block books %}navbar-active{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/content.css">
+    <link rel="stylesheet" href="/css/image.css">
+{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <a href="{{ path('book_index') }}"><img src="/images/banner_book.png" class="img-fluid" alt="book page"></a>
+    </div>
+    <!--header-->
+
+    <div class="content">
+        <h3><span>ALL BOOKS</span></h3>
+        <center>
+            {% for book in books %}
+                <a href="{{ path('book_show', {'id': book.id}) }}"><img src="/images/{{ book.image }}" class="book-img img-fluid" alt="{{ book.title }}"></a>
+            {% else %}
+               <p class="text-center">No records found</p>
+            {% endfor %}
+        </center>
+        <!--all books-->
+
+        <h3><span>SELLER'S SECTION</span></h3>
+        <div class="book-crud">
+            <a href="{{ path('book_new') }}" class="btn-right">>>> Create new book</a>
+
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Genre</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.genre }}</td>
+                            <td>
+                                <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">View</a>
+                                <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">Edit / Delete</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No records found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!--book crud-->
+    </div>
+    <!--content-->
+{% endblock %}

@@ -1,3 +1,8 @@
+/* ----default---- */
+body {
+    font-size: 20px;
+}
+
 .header {
     padding-top: 20px;
 }
@@ -21,8 +26,32 @@
     text-align: justify;
 }
 
+/* ----about---- */
 #about-location {
     padding: 30px;
     text-align: center;
 }
+
+/* ----genre & book---- */
+table, .text-center {
+    text-align: center;
+}
+
+.genre-crud, .book-crud {
+    padding: 20px;
+}
+
+.btn-right {
+    margin: 10px 0 40px 20px;
+    float: right;
+}
+
+.partial-template {
+    padding-top: 60px;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
 

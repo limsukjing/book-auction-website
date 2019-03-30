@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/content.css">
+    <link rel="stylesheet" href="/css/image.css">
 {% endblock %}
 
 {% block body %}
@@ -24,8 +25,17 @@
                         <td>{{ genre.type }}</td>
                     </tr>
                     <tr>
-                        <th>Image</th>
-                        <td><img src="/images/{{ genre.image }}" class="genre-img img-fluid" width="300" alt="{{ genre.image }}"></td>
+                        <th>Featured Books</th>
+                        <td>
+                            <center>
+                                {% for book in genre.books %}
+                                    <a href="{{ path('book_show', {'id': book.id}) }}"><img src="/images/{{ book.image }}" class="book-img img-fluid" alt="{{ book.title }}"></a>
+                                {% else %}
+                                    <p class="text-center">No records found</p>
+                                {% endfor %}
+                            </center>
+                            <!--all books-->
+                        </td>
                     </tr>
                     <tr>
                         <th>Action</th>

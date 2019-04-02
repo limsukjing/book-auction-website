@@ -1,9 +1,15 @@
 .genre-img {
-    height: 45%;
-    width: 45%;
+    height: 30%;
+    width: 30%;
     padding: 30px;
 }
 
 .book-img {
     padding: 30px;
 }
+
+.book-img-show {
+    object-fit: scale-down;
+    padding: 10px;
+}
+

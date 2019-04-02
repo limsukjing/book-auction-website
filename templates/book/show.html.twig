@@ -2,9 +2,7 @@
 
 {% block title %}EBTB - {{ book.title }}{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="/css/content.css">
-{% endblock %}
+{% block books %}navbar-active{% endblock %}
 
 {% block body %}
     <div class="content">
@@ -21,7 +19,7 @@
                     </tr>
                     <tr>
                         <th>Image</th>
-                        <td><img src="/images/{{ book.image }}" class="book-img img-fluid" width="300" alt="{{ book.image }}"></td>
+                        <td><img src="/images/{{ book.image }}" class="book-img-show img-fluid" alt="{{ book.image }}"></td>
                     </tr>
                     <tr>
                         <th>Title</th>

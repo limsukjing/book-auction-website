@@ -4,13 +4,9 @@
 
 {% block home %}navbar-active{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="/css/content.css">
-{% endblock %}
-
 {% block body %}
     <div class="header">
-        <a href="{{ path('homepage') }}"><img src="/images/banner_home.png" class="img-fluid" alt="homepage"></a>
+        <a href="{{ path('homepage') }}"><img src="/images/banner_home.png" class="banner-img img-fluid" alt="homepage"></a>
     </div>
     <!--header-->
 {% endblock %}

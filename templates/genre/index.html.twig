@@ -4,11 +4,6 @@
 
 {% block genres %}navbar-active{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="/css/content.css">
-    <link rel="stylesheet" href="/css/image.css">
-{% endblock %}
-
 {% block body %}
     <div id="carouselExampleIndicators" class="header carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -21,19 +16,19 @@
 
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <a href="{{ path('genre_index') }}"><img src="/images/banner_genre.png" class="d-block w-100 img-fluid" alt="genre page"></a>
+                <a href="{{ path('genre_index') }}"><img src="/images/banner_genre.png" class="d-block w-100 banner-img img-fluid" alt="genre page"></a>
             </div>
             <div class="carousel-item">
-                <a href="{{ path('genre_show', {'id': 1}) }}" target="_blank"><img src="/images/banner_biography.png" class="d-block w-100 img-fluid" alt="biography page"></a>
+                <a href="{{ path('genre_show', {'id': 1}) }}" target="_blank"><img src="/images/banner_biography.png" class="d-block w-100 banner-img img-fluid" alt="biography page"></a>
             </div>
             <div class="carousel-item">
-                <a href="{{ path('genre_show', {'id': 3}) }}" target="_blank"><img src="/images/banner_crime.png" class="d-block w-100 img-fluid" alt="crime page"></a>
+                <a href="{{ path('genre_show', {'id': 3}) }}" target="_blank"><img src="/images/banner_crime.png" class="d-block w-100 banner-img img-fluid" alt="crime page"></a>
             </div>
             <div class="carousel-item">
-                <a href="{{ path('genre_show', {'id': 2}) }}" target="_blank"><img src="/images/banner_classic.png" class="d-block w-100 img-fluid" alt="classic page"></a>
+                <a href="{{ path('genre_show', {'id': 2}) }}" target="_blank"><img src="/images/banner_classic.png" class="d-block w-100 banner-img img-fluid" alt="classic page"></a>
             </div>
             <div class="carousel-item">
-                <a href="{{ path('genre_show', {'id': 8}) }}" target="_blank"><img src="/images/banner_yaf.png" class="d-block w-100 img-fluid" alt="yaf page"></a>
+                <a href="{{ path('genre_show', {'id': 8}) }}" target="_blank"><img src="/images/banner_yaf.png" class="d-block w-100 banner-img img-fluid" alt="yaf page"></a>
             </div>
         </div>
         <!--carousel inner-->
@@ -78,8 +73,8 @@
                             <td>{{ genre.id }}</td>
                             <td>{{ genre.type }}</td>
                             <td>
-                                <a href="{{ path('genre_show', {'id': genre.id}) }}" class="genre-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">View</a>
-                                <a href="{{ path('genre_edit', {'id': genre.id}) }}" class="genre-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">Edit / Delete</a>
+                                <a href="{{ path('genre_show', {'id': genre.id}) }}" class="genre-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
+                                <a href="{{ path('genre_edit', {'id': genre.id}) }}" class="genre-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
                             </td>
                         </tr>
                     {% else %}

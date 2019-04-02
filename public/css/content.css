@@ -1,6 +1,6 @@
 /* ----default---- */
-body {
-    font-size: 20px;
+body, .btn {
+    font-size: 16px;
 }
 
 .header {
@@ -12,6 +12,7 @@ body {
 }
 
 .content h3 {
+    font-size: 22px;
     padding-top: 60px;
     width: 100%;
     text-align: center;
@@ -26,7 +27,7 @@ body {
 }
 
 .content p {
-    padding: 30px;
+    padding: 20px;
     text-align: justify;
 }
 

@@ -4,14 +4,9 @@
 
 {% block books %}navbar-active{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="/css/content.css">
-    <link rel="stylesheet" href="/css/image.css">
-{% endblock %}
-
 {% block body %}
     <div class="header">
-        <a href="{{ path('book_index') }}"><img src="/images/banner_book.png" class="img-fluid" alt="book page"></a>
+        <a href="{{ path('book_index') }}"><img src="/images/banner_book.png" class="banner-img img-fluid" alt="book page"></a>
     </div>
     <!--header-->
 
@@ -48,8 +43,8 @@
                             <td>{{ book.author }}</td>
                             <td>{{ book.genre }}</td>
                             <td>
-                                <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">View</a>
-                                <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark" role="button">Edit / Delete</a>
+                                <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
+                                <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
                             </td>
                         </tr>
                     {% else %}

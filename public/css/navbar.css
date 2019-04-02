@@ -8,14 +8,14 @@
 }
 
 #navbar-logo {
-    height: 80%;
-    width: 80%;
+    height: 70%;
+    width: 70%;
     padding-left: 20px;
 }
 
 .nav-item {
     padding: 0 20px 0 20px;
-    font-size: 19px;
+    font-size: 16px;
 }
 
 #navbar-active {

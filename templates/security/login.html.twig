@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Login{% endblock %}
+
+{% block login %}disabled{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>LOGIN</span></h3>
+
+        <form method="post" class="login-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            {% if error %}
+                <div style="background-color: #FFD700; padding: 18px;">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+                <br>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Enter username" aria-describedby="usernameHelp" value="{{ last_username }}" autofocus>
+                <small id="usernameHelp" class="form-text text-muted">Hint: admin / seller / buyer</small>
+            </div>
+            <!--username input-->
+
+            <br>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Enter password">
+            </div>
+            <!--password input-->
+
+            <button type="submit" class="btn btn-lg px-3 btn-primary btn-outline-dark btn-right btn-sm">Login</button>
+        </form>
+    </div>
+    <!--login content-->
+{% endblock %}

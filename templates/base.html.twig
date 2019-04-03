@@ -19,7 +19,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <a href="https://github.com/limsukjing/book-auction-website" target="_blank" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button">View on GitHub</a>
-                    <button type="button" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right">Login</button>
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path('app_logout') }}" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button">Log out @{{ app.user.username }}</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right {% block login %}{% endblock %}" role="button">Login</a>
+                    {% endif %}
                 </div>
                 <!--col-->
             </div>

@@ -54,3 +54,8 @@ table, .text-center {
 .partial-template {
     padding-top: 60px;
 }
+
+/* ----login form---- */
+.login-form {
+    padding: 20px;
+}

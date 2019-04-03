@@ -37,12 +37,12 @@ body, .btn {
     text-align: center;
 }
 
-/* ----genre & book---- */
+/* ----genre & book & user crud---- */
 table, .text-center {
     text-align: center;
 }
 
-.genre-crud, .book-crud {
+.genre-crud, .book-crud, .user-crud {
     padding: 20px;
 }
 

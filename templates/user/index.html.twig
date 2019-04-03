@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Users{% endblock %}
+
+{% block users %}navbar-active{% endblock %}
+
+{% block body %}
+    <div class="header">
+        <a href="{{ path('user_index') }}"><img src="/images/banner_user.png" class="banner-img img-fluid" alt="user page"></a>
+    </div>
+    <!--header-->
+
+    <div class="content">
+        <h3><span>ADMIN'S SECTION</span></h3>
+        <div class="user-crud">
+            <a href="{{ path('user_new') }}" class="btn-right">>>> Create new user</a>
+
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Roles</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        <td>
+                            <a href="{{ path('user_show', {'id': user.id}) }}" class="user-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
+                            <a href="{{ path('user_edit', {'id': user.id}) }}" class="user-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!--user crud-->
+    </div>
+    <!--content-->
+{% endblock %}
+

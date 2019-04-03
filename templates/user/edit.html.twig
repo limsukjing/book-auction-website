@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Edit @{{ user.username }}{% endblock %}
+
+{% block users %}navbar-active{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>EDIT USER #{{ user.id }} - {{ user.username|upper }}</span></h3>
+
+        <div class="user-crud">
+            <a href="{{ path('user_show', {'id': user.id}) }}" class="btn-right"><<< Discard changes</a>
+
+            <div class="partial-template">
+                {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
+            <!--partial template-->
+        </div>
+        <!--user crud-->
+    </div>
+    <!--user content-->
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - New User{% endblock %}
+
+{% block users %}navbar-active{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>CREATE NEW USER</span></h3>
+
+        <div class="user-crud">
+            <a href="{{ path('user_index') }}" class="btn-right"><<< Discard changes</a>
+
+            <div class="partial-template">
+                {{ include('user/_form.html.twig') }}
+            </div>
+            <!--partial template-->
+        </div>
+        <!--user crud-->
+    </div>
+    <!--user content-->
+{% endblock %}

@@ -38,17 +38,35 @@
                         <td>{{ book.ISBN }}</td>
                     </tr>
                     <tr>
-                        <th>Reserve Price</th>
-                        <td>&#8364;{{ book.reservePrice|number_format(2, '.', ',') }}</td>
-                    </tr>
-                    <tr>
                         <th>Summary</th>
                         <td class="text-justify">{{ book.summary }}</td>
                     </tr>
                     <tr>
-                        <th>Action</th>
-                        <td><a href="{{ path('book_edit', {'id': book.id}) }}">Edit / Delete</a></td>
+                        <th>Starting Price</th>
+                        <td>&#8364;{{ book.startingPrice|number_format(2, '.', ',') }}</td>
                     </tr>
+                    <tr>
+                        <th>Seller</th>
+                        <td>
+                            <a href="{{ path('user_show', {'id': book.seller.id}) }}">{{ book.seller }}</a>
+                        </td>
+                    </tr>
+
+                    {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') %}
+                        {% if book.seller.username == currentUsername %}
+                            <div class="seller-crud">
+                                <tr>
+                                    <th>Reserve Price</th>
+                                    <td>&#8364;{{ book.reservePrice|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Actions</th>
+                                    <td><a href="{{ path('book_edit', {'id': book.id}) }}">Edit / Delete</a></td>
+                                </tr>
+                            </div>
+                            <!--seller crud-->
+                        {% endif %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>

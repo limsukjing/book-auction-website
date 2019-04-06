@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,26 @@ class Book
      * @ORM\JoinColumn(nullable=true)
      */
     private $genre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bid", mappedBy="auctionItem")
+     */
+    private $bids;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $startingPrice;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="books")
+     */
+    private $seller;
+
+    public function __construct()
+    {
+        $this->bids = new ArrayCollection();
+    }
 
     public function __toString()
     {
@@ -136,6 +158,61 @@ class Book
     public function setGenre(Genre $genre = null)
     {
         $this->genre = $genre;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bid[]
+     */
+    public function getBids(): Collection
+    {
+        return $this->bids;
+    }
+
+    public function addBid(Bid $bid): self
+    {
+        if (!$this->bids->contains($bid)) {
+            $this->bids[] = $bid;
+            $bid->setAuctionItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBid(Bid $bid): self
+    {
+        if ($this->bids->contains($bid)) {
+            $this->bids->removeElement($bid);
+            // set the owning side to null (unless already changed)
+            if ($bid->getAuctionItem() === $this) {
+                $bid->setAuctionItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStartingPrice(): ?float
+    {
+        return $this->startingPrice;
+    }
+
+    public function setStartingPrice(float $startingPrice): self
+    {
+        $this->startingPrice = $startingPrice;
+
+        return $this;
+    }
+
+    public function getSeller(): ?User
+    {
+        return $this->seller;
+    }
+
+    public function setSeller(?User $seller): self
+    {
+        $this->seller = $seller;
+
         return $this;
     }
 }

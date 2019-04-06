@@ -8,6 +8,13 @@
     <div class="content">
         <h3><span>EDIT USER #{{ user.id }} - {{ user.username|upper }}</span></h3>
 
+        {% for flash_message in app.session.flashBag.get('error') %}
+            <br>
+            <div class="flash-error" style="background-color: #FFD700; margin: 5px; padding: 18px;">
+                {{ flash_message }}
+            </div>
+        {% endfor %}
+
         <div class="user-crud">
             <a href="{{ path('user_show', {'id': user.id}) }}" class="btn-right"><<< Discard changes</a>
 

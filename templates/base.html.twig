@@ -55,9 +55,11 @@
                         <li class="nav-item">
                             <a id="{% block books %}{% endblock %}" class="nav-link" href="{{ path('book_index') }}">BOOKS</a>
                         </li>
-                        <li class="nav-item">
-                            <a id="{% block users %}{% endblock %}" class="nav-link" href="{{ path('user_index') }}">USERS</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a id="{% block users %}{% endblock %}" class="nav-link" href="{{ path('user_index') }}">USERS</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a id="{% block sitemap %}{% endblock %}" class="nav-link" href="{{ path('sitemap') }}">SITEMAP</a>
                         </li>

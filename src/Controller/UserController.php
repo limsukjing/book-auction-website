@@ -36,6 +36,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             // set role
             $role = $form->get('roles')->getData();
             $user->setRoles(array($role));
@@ -79,8 +80,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // update role
-            $role = $form->get('roles')->getData();
-            $user->setRoles(array($role));
+            $roles = $form->get('roles')->getData();
+            $user->setRoles(array($roles));
 
             // update and encode password
             $plainPassword = $form->get('password')->getData();
@@ -90,7 +91,7 @@ class UserController extends AbstractController
             // update user
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_index', [
+            return $this->redirectToRoute('user_show', [
                 'id' => $user->getId(),
             ]);
         }
@@ -107,9 +108,21 @@ class UserController extends AbstractController
     public function deleteAction(Request $request, User $user): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($user);
-            $entityManager->flush();
+            $currentUser = $this->getUser();
+            $username = $user->getUsername();
+
+            if($currentUser == $username) {
+                $this->addFlash('error','Delete operation failed - user is currently logged in.');
+
+                return $this->redirectToRoute('user_edit', [
+                    'id' => $user->getId(),
+                ]);
+            }
+            else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($user);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('user_index');

@@ -5,9 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\Book;
 use App\Entity\Genre;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class BookGenreFixtures extends Fixture
+class BookGenreFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -60,8 +61,10 @@ class BookGenreFixtures extends Fixture
         $b1->setImage('book_becoming.png');
         $b1->setISBN(9783442314874);
         $b1->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b1->setStartingPrice('4.99');
         $b1->setReservePrice('29.99');
         $b1->setGenre($g1);
+        $b1->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $b2 = new Book();
         $b2->setTitle('To All the Boys I\'ve Loved Before');
@@ -69,8 +72,10 @@ class BookGenreFixtures extends Fixture
         $b2->setImage('book_boys.png');
         $b2->setISBN(9782809463675);
         $b2->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b2->setStartingPrice('0.50');
         $b2->setReservePrice('6.50');
         $b2->setGenre($g8);
+        $b2->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
 
         $b3 = new Book();
         $b3->setTitle('Gone Girl');
@@ -78,8 +83,10 @@ class BookGenreFixtures extends Fixture
         $b3->setImage('book_gone.png');
         $b3->setISBN(9782809463675);
         $b3->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b3->setStartingPrice('1.20');
         $b3->setReservePrice('10.20');
         $b3->setGenre($g7);
+        $b3->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
 
         $b4 = new Book();
         $b4->setTitle('Crazy Rich Asians');
@@ -87,8 +94,10 @@ class BookGenreFixtures extends Fixture
         $b4->setImage('book_asians.png');
         $b4->setISBN(	9780385536974);
         $b4->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b4->setStartingPrice('2.99');
         $b4->setReservePrice('18.99');
         $b4->setGenre($g5);
+        $b4->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $b5 = new Book();
         $b5->setTitle('To Kill a Mockingbird');
@@ -96,8 +105,10 @@ class BookGenreFixtures extends Fixture
         $b5->setImage('book_mockingbird.png');
         $b5->setISBN(	9780446310789);
         $b5->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b5->setStartingPrice('15.00');
         $b5->setReservePrice('39.99');
         $b5->setGenre($g2);
+        $b5->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $b6 = new Book();
         $b6->setTitle('Pride and Prejudice');
@@ -105,8 +116,10 @@ class BookGenreFixtures extends Fixture
         $b6->setImage('book_pride.png');
         $b6->setISBN(	9780446310789);
         $b6->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b6->setStartingPrice('10.50');
         $b6->setReservePrice('50.50');
         $b6->setGenre($g2);
+        $b6->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
 
         $b7 = new Book();
         $b7->setTitle('The Notebook');
@@ -114,8 +127,10 @@ class BookGenreFixtures extends Fixture
         $b7->setImage('book_notebook.png');
         $b7->setISBN(	9785170797455);
         $b7->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b7->setStartingPrice('1.00');
         $b7->setReservePrice('5.00');
         $b7->setGenre($g6);
+        $b7->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $b8 = new Book();
         $b8->setTitle('The Fault in Our Stars');
@@ -123,8 +138,10 @@ class BookGenreFixtures extends Fixture
         $b8->setImage('book_fault.png');
         $b8->setISBN(	9780141345659);
         $b8->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b8->setStartingPrice('4.00');
         $b8->setReservePrice('15.00');
         $b8->setGenre($g8);
+        $b8->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
 
         $b9 = new Book();
         $b9->setTitle('Murder on the Orient Express');
@@ -132,8 +149,10 @@ class BookGenreFixtures extends Fixture
         $b9->setImage('book_murder.png');
         $b9->setISBN(	9788497571838);
         $b9->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b9->setStartingPrice('10.00');
         $b9->setReservePrice('66.40');
         $b9->setGenre($g3);
+        $b9->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
 
         $b10 = new Book();
         $b10->setTitle('The Diary of A Young Girl');
@@ -141,8 +160,10 @@ class BookGenreFixtures extends Fixture
         $b10->setImage('book_diary.png');
         $b10->setISBN(	9780307832375);
         $b10->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b10->setStartingPrice('25.00');
         $b10->setReservePrice('193.00');
         $b10->setGenre($g1);
+        $b10->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $b11 = new Book();
         $b11->setTitle('My Sister\'s Keeper');
@@ -150,8 +171,10 @@ class BookGenreFixtures extends Fixture
         $b11->setImage('book_keeper.png');
         $b11->setISBN(	9789616588126);
         $b11->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b11->setStartingPrice('6.60');
         $b11->setReservePrice('17.60');
         $b11->setGenre($g5);
+        $b11->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
 
         $b12 = new Book();
         $b12->setTitle('Extremely Loud & Incredibly Close');
@@ -159,8 +182,10 @@ class BookGenreFixtures extends Fixture
         $b12->setImage('book_loud.png');
         $b12->setISBN(	9784140056035);
         $b12->setSummary('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, porttitor eget accumsan at, convallis id orci. Maecenas tristique nisi in rhoncus gravida. Aliquam erat volutpat. Integer rhoncus massa quis aliquam tristique. Nunc eget orci consequat, gravida orci malesuada, consectetur dui. Donec metus nisi, euismod non arcu at, molestie pretium metus. Nam mattis sed nunc id ornare. Pellentesque pharetra ac massa in bibendum. Duis in erat cursus, vehicula orci ac, ullamcorper lacus. Donec pharetra mauris et nisl cursus mattis. Nam vulputate ultricies elit vel condimentum. Vestibulum orci urna, pellentesque vitae mauris sed, sagittis tristique urna. Phasellus gravida vulputate diam nec aliquet. Nunc ac consectetur odio.');
+        $b12->setStartingPrice('11.00');
         $b12->setReservePrice('22.30');
         $b12->setGenre($g5);
+        $b12->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
 
         $manager->persist($b1);
         $manager->persist($b2);
@@ -176,5 +201,13 @@ class BookGenreFixtures extends Fixture
         $manager->persist($b12);
 
         $manager->flush();
+    }
+
+    // load fixtures in order
+    public function getDependencies()
+    {
+        return array(
+            UserFixtures::class,
+        );
     }
 }

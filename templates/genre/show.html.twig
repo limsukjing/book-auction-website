@@ -34,10 +34,13 @@
                             <!--all books-->
                         </td>
                     </tr>
-                    <tr>
-                        <th>Action</th>
-                        <td><a href="{{ path('genre_edit', {'id': genre.id}) }}">Edit / Delete</a></td>
-                    </tr>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <th>Actions</th>
+                            <td><a href="{{ path('genre_edit', {'id': genre.id}) }}">Edit / Delete</a></td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>

@@ -20,8 +20,12 @@ class BookController extends AbstractController
      */
     public function indexAction(BookRepository $bookRepository): Response
     {
+        // get currently logged in user
+        $user = $this->getUser();
+
         return $this->render('book/index.html.twig', [
             'books' => $bookRepository->findAll(),
+            'currentUsername' => $user
         ]);
     }
 
@@ -31,6 +35,11 @@ class BookController extends AbstractController
     public function newAction(Request $request): Response
     {
         $book = new Book();
+
+        // set currently logged in user as the seller
+        $seller = $this->getUser();
+        $book->setSeller($seller);
+
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
@@ -53,8 +62,12 @@ class BookController extends AbstractController
      */
     public function showAction(Book $book): Response
     {
+        // get currently logged in user
+        $user = $this->getUser();
+
         return $this->render('book/show.html.twig', [
             'book' => $book,
+            'currentUsername' => $user
         ]);
     }
 
@@ -69,7 +82,7 @@ class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('book_index', [
+            return $this->redirectToRoute('book_show', [
                 'id' => $book->getId(),
             ]);
         }

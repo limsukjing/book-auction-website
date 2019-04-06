@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +16,11 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password')
             ->add('roles', ChoiceType::class, [
+                'label' => 'Role',
                 'mapped' => false,
                 'required' => true,
-                'multiple' => false,
-                'expanded' => false,
                 'choices' => [
+                    'Please select a role' => '',
                     'Admin' => 'ROLE_ADMIN',
                     'Seller' => 'ROLE_SELLER',
                     'Buyer' => 'ROLE_BUYER'

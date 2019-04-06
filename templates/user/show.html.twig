@@ -9,7 +9,11 @@
         <h3><span>USER #{{ user.id }} - {{ user.username|upper }}</span></h3>
 
         <div class="user-crud">
-            <a href="{{ path('user_index') }}" class="btn-right"><<< Back to list</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('user_index') }}" class="btn-right"><<< Back to list</a>
+            {% else %}
+                <br>
+            {% endif %}
 
             <table class="table table-hover table-bordered">
                 <tbody>
@@ -21,18 +25,45 @@
                     <th>Username</th>
                     <td>{{ user.username }}</td>
                 </tr>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="admin-crud">
+                        <tr>
+                            <th>Password</th>
+                            <td>{{ user.password }}</td>
+                        </tr>
+                        <tr>
+                            <th>Role</th>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        </tr>
+                    </div>
+                    <!--admin crud-->
+                {% endif %}
+
                 <tr>
-                    <th>Password</th>
-                    <td>{{ user.password }}</td>
+                    <th>Auctions</th>
+                    <td>
+                        {% if 'ROLE_SELLER' in user.roles ? user.roles|json_encode : ''  %}
+                            {% for book in user.books %}
+                                <a href="{{ path('book_show', {'id': book.id}) }}"><img src="/images/{{ book.image }}" class="book-img img-fluid" alt="{{ book.title }}"></a>
+                            {% else %}
+                                <p class="text-center">No records found</p>
+                            {% endfor %}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
                 </tr>
-                <tr>
-                    <th>Roles</th>
-                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Action</th>
-                    <td><a href="{{ path('user_edit', {'id': user.id}) }}">Edit / Delete</a></td>
-                </tr>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="admin-crud">
+                        <tr>
+                            <th>Actions</th>
+                            <td><a href="{{ path('user_edit', {'id': user.id}) }}">Edit / Delete</a></td>
+                        </tr>
+                    </div>
+                    <!--admin crud-->
+                {% endif %}
                 </tbody>
             </table>
         </div>

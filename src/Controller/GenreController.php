@@ -69,7 +69,7 @@ class GenreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('genre_index', [
+            return $this->redirectToRoute('genre_show', [
                 'id' => $genre->getId(),
             ]);
         }

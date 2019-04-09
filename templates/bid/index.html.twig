@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - My Bids{% endblock %}
+
+{% block cart %}disabled{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>ALL BIDS</span></h3>
+        <div class="bid-crud">
+            <a href="{{ path('book_index') }}" class="btn-right">Create new bid >>></a>
+            <p id="space"></p>
+
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <br>
+                <div class="flash-success" style="background-color: #32CD32; color: #FFFFFF; margin: 5px; padding: 18px; text-align: center;">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <br>
+                <div class="flash-error" style="background-color: #FFA500; color: #FFFFFF; margin: 5px; padding: 18px; text-align: center;">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            {% for bid in bids|sort|reverse if bid.buyer.username == currentUsername %}
+                <div class="bids-container">
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}"><img src="/images/{{ bid.auctionItem.image }}" class="img-fluid" alt="{{ bid.auctionItem.title }}"></a>
+                        </div>
+                        <!--left col-->
+
+                        <div class="col-8">
+                            <table class="table table-hover table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>#</th>
+                                        <td>{{ loop.index }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Auction Item</th>
+                                        <td><a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}">{{ bid.auctionItem }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <td>&#8364;{{ bid.amount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Actions</th>
+                                        <td>
+                                            <a href="{{ path('bid_edit', {'id': bid.id}) }}" class="bid-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--right col-->
+                    </div>
+                    <!--row-->
+                </div>
+                <!--bids container-->
+            {% else %}
+                <p class="text-center">You haven't placed any bids yet.</p>
+            {% endfor %}
+            <!--only display bid records for current logged in buyer-->
+        </div>
+        <!--bid crud-->
+    </div>
+    <!--content-->
+{% endblock %}
+
+
+
+

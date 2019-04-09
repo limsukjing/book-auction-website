@@ -10,13 +10,13 @@
 
         {% for flash_message in app.session.flashBag.get('error') %}
             <br>
-            <div class="flash-error" style="background-color: #FFD700; margin: 5px; padding: 18px;">
+            <div class="flash-error" style="background-color: #FFA500; color: #FFFFFF; margin: 5px; padding: 18px; text-align: center;">
                 {{ flash_message }}
             </div>
         {% endfor %}
 
         <div class="user-crud">
-            <a href="{{ path('user_show', {'id': user.id}) }}" class="btn-right"><<< Discard changes</a>
+            <a href="{{ path('user_show', {'id': user.id}) }}" class="btn-left"><<< Discard changes</a>
 
             <div class="partial-template">
                 {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}

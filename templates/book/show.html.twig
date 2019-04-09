@@ -9,7 +9,22 @@
         <h3><span>BOOK #{{ book.id }} - {{ book.title|upper }}</span></h3>
 
         <div class="book-crud">
-            <a href="{{ path('book_index') }}" class="btn-right"><<< Back to list</a>
+            <a href="{{ path('book_index') }}" class="btn-left"><<< Back to list</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') or (is_granted('ROLE_BUYER')) %}
+                    {% if book.seller.username == currentUsername %}
+                        <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">View auction >>></a>
+                    {% elseif is_granted('ROLE_BUYER') %}
+                        {% for bid in book.bids if bid.buyer == currentUsername %}
+                            <a href="{{ path('bid_edit', {'id': bid.id}) }}" class="btn-right">Edit Bid >>></a>
+                        {% else %}
+                            <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">Enter auction >>></a>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">Enter auction >>></a>
+            {% endif %}
 
             <table class="table table-hover table-bordered">
                 <tbody>

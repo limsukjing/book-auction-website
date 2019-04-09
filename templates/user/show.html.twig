@@ -10,7 +10,7 @@
 
         <div class="user-crud">
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('user_index') }}" class="btn-right"><<< Back to list</a>
+                <a href="{{ path('user_index') }}" class="btn-left"><<< Back to list</a>
             {% else %}
                 <br>
             {% endif %}

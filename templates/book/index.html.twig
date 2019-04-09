@@ -24,7 +24,7 @@
         {% if is_granted('ROLE_SELLER') %}
             <h3><span>SELLER'S SECTION</span></h3>
             <div class="book-crud">
-                <a href="{{ path('book_new') }}" class="btn-right">>>> Create new book</a>
+                <a href="{{ path('book_new') }}" class="btn-right">Create new book >>></a>
 
                 <table class="table table-hover table-bordered">
                     <thead class="thead-dark">
@@ -37,25 +37,25 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {% for book in books %}
-                            <tr>
-                                <td>{{ book.id }}</td>
-                                <td>{{ book.title }}</td>
-                                <td>{{ book.seller }}</td>
-                                <td>{{ book.genre }}</td>
-                                <td>&#8364;{{ book.startingPrice|number_format(2, '.', ',') }}</td>
-                                <td>
-                                    <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
-                                    {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') %}
-                                        {% if book.seller.username == currentUsername %}
+                            {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') %}
+                                {% if book.seller.username == currentUsername %}
+                                    <tr>
+                                        <td>{{ book.id }}</td>
+                                        <td>{{ book.title }}</td>
+                                        <td>{{ book.seller }}</td>
+                                        <td>{{ book.genre }}</td>
+                                        <td>&#8364;{{ book.startingPrice|number_format(2, '.', ',') }}</td>
+                                        <td>
+                                            <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
                                             <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
-                                        {% else %}
-                                            <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-secondary btn-outline-dark btn-sm disabled" role="button">Edit / Delete</a>
-                                        {% endif %}
-                                    {% endif %}
-                                </td>
-                            </tr>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                            <!--only display records for current logged in seller-->
                         {% else %}
                             <tr>
                                 <td colspan="7">No records found</td>

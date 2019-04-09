@@ -37,12 +37,12 @@ body, .btn {
     text-align: center;
 }
 
-/* ----genre & book & user crud---- */
+/* ----genre & book & user & bid crud---- */
 table, .text-center {
     text-align: center;
 }
 
-.genre-crud, .book-crud, .user-crud {
+.genre-crud, .book-crud, .user-crud, .bid-crud {
     padding: 20px;
 }
 
@@ -51,11 +51,35 @@ table, .text-center {
     float: right;
 }
 
+.btn-left {
+    margin: 10px 0 40px 0;
+    float: left;
+}
+
 .partial-template {
     padding-top: 60px;
 }
 
+.card-text {
+    font-size: 40px;
+    color: #F08080;
+    padding: 0;
+    margin: 0;
+}
+
+.bids-container {
+    padding: 80px;
+}
+
+.bids-container table {
+    margin-top: 40px;
+}
+
+.text-center {
+    text-align: center;
+}
+
 /* ----login form---- */
 .login-form {
-    padding: 20px;
+    padding: 80px;
 }

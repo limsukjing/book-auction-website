@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Bid {{ bid.auctionItem.title }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>BID ON BOOK #{{ bid.auctionItem.id }} - {{ bid.auctionItem.title|upper }}</span></h3>
+
+        <div class="bid-crud">
+            <a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}" class="btn-left"><<< Discard changes</a>
+
+            {{ include('bid/_show.html.twig') }}
+
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <br>
+                <div class="flash-error" style="background-color: #FFA500; color: #FFFFFF; margin: 5px; padding: 18px; text-align: center;">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
+            <div class="partial-template">
+                {{ include('bid/_form.html.twig') }}
+            </div>
+            <!--partial template-->
+        </div>
+        <!--bid crud-->
+    </div>
+    <!--bid content-->
+{% endblock %}
+

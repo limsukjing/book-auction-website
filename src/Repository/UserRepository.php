@@ -36,13 +36,4 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function findOneByUsernameOrEmail($usernameOrEmail)
-    {
-        if ($this->isValidEmail($usernameOrEmail)) {
-            return $this->findOneByEmail($usernameOrEmail);
-        }
-
-        return $this->findOneByUsername($usernameOrEmail);
-    }
 }

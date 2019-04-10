@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EBTB - My Bids{% endblock %}
+{% block title %}EBTB - My Offers{% endblock %}
 
 {% block cart %}disabled{% endblock %}
 
 {% block body %}
     <div class="content">
-        <h3><span>ALL BIDS</span></h3>
+        <h3><span>ALL OFFERS</span></h3>
         <div class="bid-crud">
-            <a href="{{ path('bid_success') }}" class="btn-left"><<< View offers</a>
-            <a href="{{ path('book_index') }}" class="btn-right">Create new bid >>></a>
+            <a href="{{ path('bid_index') }}" class="btn-right">View active bids >>></a>
             <p id="space"></p>
 
             {% for flash_message in app.session.flashBag.get('success') %}
@@ -19,15 +18,8 @@
                 </div>
             {% endfor %}
 
-            {% for flash_message in app.session.flashBag.get('error') %}
-                <br>
-                <div class="flash-error" style="background-color: #FFA500; color: #FFFFFF; margin: 5px; padding: 18px; text-align: center;">
-                    {{ flash_message }}
-                </div>
-            {% endfor %}
-
             {% for bid in bids|sortbyfield('timestamp', 'desc') if bid.buyer.username == currentUsername %}
-                {% if bid.auctionItem.status == "active" %}
+                {% if bid.auctionItem.status == "finished" %}
                     <div class="bids-container">
                         <div class="row">
                             <div class="col">
@@ -57,7 +49,7 @@
                                         <tr>
                                             <th>Actions</th>
                                             <td>
-                                                <a href="{{ path('bid_edit', {'id': bid.id}) }}" class="bid-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>
+                                                <a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -68,11 +60,9 @@
                         <!--row-->
                     </div>
                     <!--bids container-->
-                {% else %}
-                    <p class="text-center">No active bids</p>
                 {% endif %}
             {% else %}
-                <p class="text-center">You haven't placed any bids</p>
+                <p class="text-center">No offers yet</p>
             {% endfor %}
             <!--only display bid records for current logged in buyer-->
         </div>

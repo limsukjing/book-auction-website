@@ -65,6 +65,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b1->setReservePrice('29.99');
         $b1->setGenre($g1);
         $b1->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b1->setStatus('active');
 
         $b2 = new Book();
         $b2->setTitle('To All the Boys I\'ve Loved Before');
@@ -76,6 +77,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b2->setReservePrice('6.50');
         $b2->setGenre($g8);
         $b2->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
+        $b2->setStatus('active');
 
         $b3 = new Book();
         $b3->setTitle('Gone Girl');
@@ -87,6 +89,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b3->setReservePrice('10.20');
         $b3->setGenre($g7);
         $b3->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
+        $b3->setStatus('active');
 
         $b4 = new Book();
         $b4->setTitle('Crazy Rich Asians');
@@ -98,6 +101,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b4->setReservePrice('18.99');
         $b4->setGenre($g5);
         $b4->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b4->setStatus('active');
 
         $b5 = new Book();
         $b5->setTitle('To Kill a Mockingbird');
@@ -109,6 +113,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b5->setReservePrice('39.99');
         $b5->setGenre($g2);
         $b5->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b5->setStatus('active');
 
         $b6 = new Book();
         $b6->setTitle('Pride and Prejudice');
@@ -120,6 +125,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b6->setReservePrice('50.50');
         $b6->setGenre($g2);
         $b6->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
+        $b6->setStatus('active');
 
         $b7 = new Book();
         $b7->setTitle('The Notebook');
@@ -131,6 +137,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b7->setReservePrice('5.00');
         $b7->setGenre($g6);
         $b7->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b7->setStatus('active');
 
         $b8 = new Book();
         $b8->setTitle('The Fault in Our Stars');
@@ -142,6 +149,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b8->setReservePrice('15.00');
         $b8->setGenre($g8);
         $b8->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
+        $b8->setStatus('active');
 
         $b9 = new Book();
         $b9->setTitle('Murder on the Orient Express');
@@ -153,6 +161,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b9->setReservePrice('66.40');
         $b9->setGenre($g3);
         $b9->setSeller($this->getReference(UserFixtures::SELLER3_REFERENCE));
+        $b9->setStatus('active');
 
         $b10 = new Book();
         $b10->setTitle('The Diary of A Young Girl');
@@ -164,6 +173,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b10->setReservePrice('193.00');
         $b10->setGenre($g1);
         $b10->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b10->setStatus('active');
 
         $b11 = new Book();
         $b11->setTitle('My Sister\'s Keeper');
@@ -175,6 +185,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b11->setReservePrice('17.60');
         $b11->setGenre($g5);
         $b11->setSeller($this->getReference(UserFixtures::SELLER2_REFERENCE));
+        $b11->setStatus('active');
 
         $b12 = new Book();
         $b12->setTitle('Extremely Loud & Incredibly Close');
@@ -186,6 +197,7 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $b12->setReservePrice('22.30');
         $b12->setGenre($g5);
         $b12->setSeller($this->getReference(UserFixtures::SELLER1_REFERENCE));
+        $b12->setStatus('active');
 
         $manager->persist($b1);
         $manager->persist($b2);

@@ -34,13 +34,14 @@
                             <th>Seller</th>
                             <th>Genre</th>
                             <th>Starting Price</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {% for book in books %}
-                            {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') %}
+                            {% if 'ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '' %}
                                 {% if book.seller.username == currentUsername %}
                                     <tr>
                                         <td>{{ book.id }}</td>
@@ -48,6 +49,7 @@
                                         <td>{{ book.seller }}</td>
                                         <td>{{ book.genre }}</td>
                                         <td>&#8364;{{ book.startingPrice|number_format(2, '.', ',') }}</td>
+                                        <td>{{ book.status }}</td>
                                         <td>
                                             <a href="{{ path('book_show', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">View</a>
                                             <a href="{{ path('book_edit', {'id': book.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Edit / Delete</a>

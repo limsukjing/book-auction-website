@@ -37,12 +37,12 @@ body, .btn {
     text-align: center;
 }
 
-/* ----genre & book & user & bid crud---- */
+/* ----genre & book & user & bid & auction crud---- */
 table, .text-center {
     text-align: center;
 }
 
-.genre-crud, .book-crud, .user-crud, .bid-crud {
+.genre-crud, .book-crud, .user-crud, .bid-crud, .auction-crud {
     padding: 20px;
 }
 
@@ -67,12 +67,20 @@ table, .text-center {
     margin: 0;
 }
 
-.bids-container {
+.bids-container, .auction-container {
     padding: 80px;
 }
 
 .bids-container table {
     margin-top: 40px;
+}
+
+.auction-container table {
+    margin-top: 80px;
+}
+
+.auction-action {
+    padding: 10px;
 }
 
 .text-center {

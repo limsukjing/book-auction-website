@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="content">
-        <h3><span>EDIT BOOK #{{ book.id }} - {{ book.title|upper }}</span></h3>
+        <h3><span>EDIT BOOK #{{ book.id }} - {{ book.title|upper }} {% if book.status == "finished" %} (CLOSED){% endif %}</span></h3>
 
         <div class="book-crud">
             <a href="{{ path('book_show', {'id': book.id}) }}" class="btn-left"><<< Discard changes</a>

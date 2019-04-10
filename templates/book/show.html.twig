@@ -6,19 +6,31 @@
 
 {% block body %}
     <div class="content">
-        <h3><span>BOOK #{{ book.id }} - {{ book.title|upper }}</span></h3>
+        <h3><span>BOOK #{{ book.id }} - {{ book.title|upper }} {% if book.status == "finished" %} (CLOSED){% endif %}</span></h3>
 
         <div class="book-crud">
             <a href="{{ path('book_index') }}" class="btn-left"><<< Back to list</a>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') or (is_granted('ROLE_BUYER')) %}
                     {% if book.seller.username == currentUsername %}
-                        <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">View auction >>></a>
+                        {% if book.status == "finished" %}
+                            <a href="{{ path('auction_show', {'id': book.id}) }}" class="btn-right">View past auction >>></a>
+                        {% else %}
+                            <a href="{{ path('auction_show', {'id': book.id}) }}" class="btn-right">View current auction >>></a>
+                        {% endif %}
                     {% elseif is_granted('ROLE_BUYER') %}
                         {% for bid in book.bids if bid.buyer == currentUsername %}
-                            <a href="{{ path('bid_edit', {'id': bid.id}) }}" class="btn-right">Edit Bid >>></a>
+                            {% if book.status == "finished" %}
+                                <a href="#" class="btn-right">NOT FOR SALE</a>
+                            {% else %}
+                                <a href="{{ path('bid_edit', {'id': bid.id}) }}" class="btn-right">Edit Bid >>></a>
+                            {% endif %}
                         {% else %}
-                            <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">Enter auction >>></a>
+                            {% if book.status == "finished" %}
+                                <a href="#" class="btn-right">NOT FOR SALE</a>
+                            {% else %}
+                                <a href="{{ path('bid_new', {'id': book.id}) }}" class="btn-right">Enter auction >>></a>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 {% endif %}

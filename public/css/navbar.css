@@ -22,13 +22,11 @@
     color: #FFA500;
 }
 
-#cart-button {
+#cart-button, #auction-button, #user-button {
     padding: 2px 15px 0 30px;
-    /*padding-bottom: 0;*/
-    /*padding-top: 2px;*/
 }
 
-#cart-text {
+#cart-text, #auction-text, #user-text {
     position: relative;
     left: 5px;
     bottom: 3px;

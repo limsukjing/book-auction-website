@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}EBTB - My Auctions{% endblock %}
+{% block title %}EBTB - My AUCTIONS{% endblock %}
 
-{% block auction %}disabled{% endblock %}
+{% block cart %}disabled{% endblock %}
 
 {% block body %}
     <div class="content">
-        <h3><span>ALL CURRENT AUCTIONS</span></h3>
-        <div class="auction-crud">
-            <a href="{{ path('auction_success') }}" class="btn-right">View Past Auctions >>></a>
+        <h3><span>ALL PAST AUCTIONS</span></h3>
+        <div class="bid-crud">
+            <a href="{{ path('auction_index') }}" class="btn-left"><<< View current auctions</a>
             <p id="space"></p>
 
-            {% for book in books if book.status == "active" %}
+            {% for book in books if book.status == "finished" %}
                 {% if book.seller.username == currentUsername %}
                     <div class="auction-container">
                         <div class="row">
@@ -34,17 +34,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for bid in book.bids|sortbyfield('timestamp', 'desc') %}
-                                                <tr>
-                                                    <td>&#8364;{{ bid.amount }}</td>
-                                                    <td>{{ bid.buyer.username}}</td>
-                                                    <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>
-                                                </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="7">No bids yet</td>
-                                            </tr>
-                                        {% endfor %}
+                                        <tr>
+                                            {% for bid in book.bids %}
+                                                <td>&#8364;{{ bid.amount }}</td>
+                                                <td>{{ bid.buyer.username}}</td>
+                                                <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>
+                                            {% endfor %}
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -55,11 +51,10 @@
                     <!--auction container-->
                 {% endif %}
             {% else %}
-                <p class="text-center">You haven't received any bids</p>
+                <p class="text-center">No offers yet</p>
             {% endfor %}
-            <!--only display auction records for current logged in seller-->
         </div>
-        <!--auction crud-->
+        <!--bid crud-->
     </div>
     <!--content-->
 {% endblock %}

@@ -38,7 +38,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bid", mappedBy="bidder")
+     * @ORM\OneToMany(targetEntity="App\Entity\Bid", mappedBy="buyer")
      */
     private $bids;
 
@@ -46,6 +46,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="seller")
      */
     private $books;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Book", mappedBy="highestBidder", cascade={"persist", "remove"})
+     */
+    private $book;
 
     public function __construct()
     {
@@ -184,6 +189,24 @@ class User implements UserInterface
             if ($book->getSeller() === $this) {
                 $book->setSeller(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getBook(): ?Book
+    {
+        return $this->book;
+    }
+
+    public function setBook(?Book $book): self
+    {
+        $this->book = $book;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newHighestBidder = $book === null ? null : $this;
+        if ($newHighestBidder !== $book->getHighestBidder()) {
+            $book->setHighestBidder($newHighestBidder);
         }
 
         return $this;

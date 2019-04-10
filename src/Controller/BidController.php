@@ -33,6 +33,20 @@ class BidController extends AbstractController
     }
 
     /**
+     * @Route("/success", name="bid_success", methods={"GET"})
+     */
+    public function successBidAction(BidRepository $bidRepository): Response
+    {
+        // get currently logged in user
+        $user = $this->getUser();
+
+        return $this->render('bid/success.html.twig', [
+            'bids' => $bidRepository->findAll(),
+            'currentUsername' => $user,
+        ]);
+    }
+
+    /**
      * @Route("/book/{id}", name="bid_new", methods={"GET","POST"})
      */
     public function bidAction(BidRepository $bidRepository, Request $request, Book $book): Response
@@ -40,6 +54,7 @@ class BidController extends AbstractController
         $bid = new Bid();
 
         $title = $book->getTitle(); // get title of current book
+        $maxBid = $book->getReservePrice(); // get reserve price of current book
         $bidder = $this->getUser(); // set currently logged in user as the bidder
         $bid->setBuyer($bidder);
         $bid->setAuctionItem($book); // set current book as the auction item
@@ -51,6 +66,7 @@ class BidController extends AbstractController
             $currentHighestBid = $bidRepository->findOneBy(['auctionItem' => $book], ['timestamp' => "DESC"]); // find the latest bid
             $currentBidder= $bidRepository->findOneBy(['buyer' => $bidder]); // find the latest bid
 
+            // previous bids exist
             // compare bid specified by buyer to current highest bid
             if(isset($currentHighestBid)) {
                 if($bid->getAmount() <= $currentHighestBid->getAmount()) {
@@ -65,7 +81,24 @@ class BidController extends AbstractController
 
                     return $this->redirectToRoute('bid_index');
                 }
+                if($bid->getAmount() >= $maxBid) {
+                    $book->setStatus('finished');
+                    $book->setHighestBidder($bidder);
+
+                    // set timestamp
+                    $dateTime = $form->get('timestamp')->getData();
+                    $bid->setTimestamp($dateTime);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($bid);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Congratulations! You won the auction item "' . $book->getTitle() . '"');
+
+                    return $this->redirectToRoute('bid_success');
+                }
             }
+            // previous bids do not exist
             // compare bid specified by buyer to starting price
             else {
                 if ($bid->getAmount() < $book->getStartingPrice()) {
@@ -74,6 +107,22 @@ class BidController extends AbstractController
                     return $this->redirectToRoute('bid_new', [
                         'id' => $book->getId(),
                     ]);
+                }
+                if($bid->getAmount() >= $maxBid) {
+                    $book->setStatus('finished');
+                    $book->setHighestBidder($bidder);
+
+                    // set timestamp
+                    $dateTime = $form->get('timestamp')->getData();
+                    $bid->setTimestamp($dateTime);
+
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($bid);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Congratulations! You won the auction item "' . $book->getTitle() . '"');
+
+                    return $this->redirectToRoute('bid_success');
                 }
             }
 
@@ -86,9 +135,7 @@ class BidController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Your bid has been placed - €' . $bid->getAmount() . ' on auction item "' . $book->getTitle() . '"');
-
             return $this->redirectToRoute('bid_index');
-
         }
 
         return $this->render('bid/new.html.twig', [

@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EBTB - Auction Item #{{ book.id }}{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <h3><span>AUCTION ITEM #{{ book.id }} - {{ book.title|upper }} {% if book.status == "finished" %} (CLOSED){% endif %}</span></h3>
+
+        <div class="auction-crud">
+            <a href="{{ path('book_show', {'id': book.id}) }}" class="btn-left"><<< Back to book</a>
+            <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn-right">Revise auction item >>></a>
+
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    {% for bid in book.bids|sortbyfield('timestamp', 'desc') %}
+                        {% if bid.auctionItem == currentBook %}
+                            {% if bid.auctionItem.status == "finished" %}
+                                {% set highestOffer = 0 %}
+
+                                {% for bid in book.bids %}
+                                    {% set highestOffer = max(bid.amount, highestOffer) %}
+                                {% endfor %}
+
+                                {% if loop.first == true %}
+                                    <h5 class="card-title">Highest Offer</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">By: {{ bid.buyer }}</h6>
+                                    <p class="card-text">&#8364;{{ highestOffer }}</p>
+                                {% endif %}
+                            {% else %}
+                                {% set highestBid = 0 %}
+
+                                {% for bid in book.bids %}
+                                    {% set highestBid = max(bid.amount, highestBid) %}
+                                {% endfor %}
+
+                                {% if loop.first == true %}
+                                    <h5 class="card-title">Current Bid</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ book.bids|length }} Bids</h6>
+                                    <p class="card-text">&#8364;{{ highestBid }}</p>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        <!--if bids found: display highest bid and records for current book-->
+                    {% else %}
+                        <h5 class="card-title">Current Bid</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ book.bids|length }} Bid</h6>
+                        <p class="card-text">Starting Price: &#8364;{{ book.startingPrice }}</p>
+                    {% endfor %}
+                    <!--if bids not found: display starting and reserve bid-->
+                </div>
+            </div>
+            <!--current auction card-->
+
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Bidder</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bid in book.bids|sortbyfield('timestamp', 'desc') %}
+                        <tr>
+                            <td>&#8364;{{ bid.amount }}</td>
+                            <td>{{ bid.buyer.username}}</td>
+                            <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>
+                        </tr>
+                        <!--only display records for current auction item-->
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No one has bid</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!--auction crud-->
+    </div>
+    <!--auction content-->
+{% endblock %}
+

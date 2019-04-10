@@ -21,14 +21,15 @@
                 <div class="col-lg-12">
                     <a href="https://github.com/limsukjing/book-auction-website" target="_blank" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button">View on GitHub</a>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ path('app_logout') }}" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button">Log out @{{ app.user.username }}</a>
+                        <a href="{{ path('app_logout') }}" id="user-button" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button"><i class="material-icons">person</i><span id="user-text">Log out @{{ app.user.username }}</span></a>
                         {% if is_granted('ROLE_BUYER') %}
                             <a href="{{ path('bid_index') }}" id="cart-button" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right {% block cart %}{% endblock %}" role="button"><i class="material-icons">shopping_cart</i><span id="cart-text">My Bids</span></a>
-                        {% elseif is_granted('ROLE_SELLER') %}
-                            <a href="{{ path('app_logout') }}" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right" role="button">My Auctions</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_SELLER') %}
+                            <a href="{{ path('auction_index') }}" id="auction-button" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right {% block auction %}{% endblock %}" role="button"><i class="material-icons">mail</i><span id="auction-text">My Auctions</span></a>
                         {% endif %}
                     {% else %}
-                        <a href="{{ path('app_login') }}" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right {% block login %}{% endblock %}" role="button">Login</a>
+                        <a href="{{ path('app_login') }}" id="user-button" class="nav-button btn btn-secondary btn-outline-dark btn-sm float-right {% block login %}{% endblock %}" role="button"><i class="material-icons">person</i><span id="user-text">Login</span></a>
                     {% endif %}
                 </div>
                 <!--col-->

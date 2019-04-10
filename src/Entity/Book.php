@@ -71,6 +71,16 @@ class Book
      */
     private $seller;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="book", cascade={"persist", "remove"})
+     */
+    private $highestBidder;
+
     public function __construct()
     {
         $this->bids = new ArrayCollection();
@@ -214,6 +224,30 @@ class Book
     public function setSeller(?User $seller): self
     {
         $this->seller = $seller;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getHighestBidder(): ?User
+    {
+        return $this->highestBidder;
+    }
+
+    public function setHighestBidder(?User $highestBidder): self
+    {
+        $this->highestBidder = $highestBidder;
 
         return $this;
     }

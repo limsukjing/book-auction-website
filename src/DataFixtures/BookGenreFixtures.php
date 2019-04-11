@@ -10,6 +10,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class BookGenreFixtures extends Fixture implements DependentFixtureInterface
 {
+    // user (seller) object reference
+    public const BOOK1_REFERENCE = 'b1';
+    public const BOOK2_REFERENCE = 'b2';
+    public const BOOK3_REFERENCE = 'b3';
+
     public function load(ObjectManager $manager)
     {
         /* Genre Fixtures */
@@ -213,6 +218,11 @@ class BookGenreFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($b12);
 
         $manager->flush();
+
+        // allow other fixtures to access user (seller) object
+        $this->addReference(self::BOOK1_REFERENCE, $b1);
+        $this->addReference(self::BOOK2_REFERENCE, $b2);
+        $this->addReference(self::BOOK3_REFERENCE, $b3);
     }
 
     // load fixtures in order

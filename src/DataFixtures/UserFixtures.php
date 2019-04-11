@@ -13,6 +13,9 @@ class UserFixtures extends Fixture
     public const SELLER1_REFERENCE = 'seller1';
     public const SELLER2_REFERENCE = 'seller2';
     public const SELLER3_REFERENCE = 'seller3';
+    public const BUYER1_REFERENCE = 'buyer1';
+    public const BUYER2_REFERENCE = 'buyer2';
+    public const BUYER3_REFERENCE = 'buyer3';
 
     private $passwordEncoder;
 
@@ -58,5 +61,8 @@ class UserFixtures extends Fixture
         $this->addReference(self::SELLER1_REFERENCE, $seller1);
         $this->addReference(self::SELLER2_REFERENCE, $seller2);
         $this->addReference(self::SELLER3_REFERENCE, $seller3);
+        $this->addReference(self::BUYER1_REFERENCE, $buyer1);
+        $this->addReference(self::BUYER2_REFERENCE, $buyer2);
+        $this->addReference(self::BUYER3_REFERENCE, $buyer3);
     }
 }

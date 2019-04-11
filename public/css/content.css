@@ -91,3 +91,35 @@ table, .text-center {
 .login-form {
     padding: 80px;
 }
+
+/* ----comment crud---- */
+.comment-crud {
+    padding: 50px;
+}
+
+.comment-buyer {
+    border: 1px solid #FFFACD;
+    background-color: #FFFACD;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px;
+}
+
+.comment-seller {
+    border: 1px solid #FFEFD5;
+    background-color: #FFEFD5;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 30px;
+}
+
+.seller-left {
+    margin: 25px 10px 0 10px;
+}
+
+.media .avatar {
+    width: 70px;
+}
+
+
+

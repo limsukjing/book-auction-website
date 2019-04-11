@@ -98,6 +98,66 @@
             </table>
         </div>
         <!--book crud-->
+
+        <h3><span>CUSTOMER Q&A</span></h3>
+
+        <div class="comment-crud">
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="flash-success alert alert-success alert-dismissible fade show" role="alert">
+                    {{ flash_message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <br>
+            {% endfor %}
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="comment" aria-selected="true">Comments</a>
+                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="new-comment-tab" data-toggle="tab" href="#new-comment" role="tab" aria-controls="new-comment" aria-selected="false">Add Comment</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="comment" role="tabpanel" aria-labelledby="comment-tab">
+                    {% for comment in book.comments if comment.item.id == book.id %}
+                        {% if ('ROLE_BUYER' in comment.author.roles ? comment.author.roles|json_encode : '') %}
+                            <div class="media comment-buyer">
+                                <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://image.flaticon.com/icons/svg/145/145846.svg" alt="{{ comment.author }} avatar">
+                                <div class="media-body">
+                                    <h5 class="mt-0 font-weight-bold blue-text">{{ comment.author }}</h5>
+                                    {{ comment.content }}
+                                    {% if comment.author == currentUsername %}
+                                        {{ include('comment/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="media comment-seller">
+                                <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://image.flaticon.com/icons/svg/145/145847.svg" alt="{{ comment.author }} avatar">
+                                <div class="media-body">
+                                    <h5 class="mt-0 font-weight-bold blue-text">{{ comment.author }}</h5>
+                                    {{ comment.content }}
+                                    {% if comment.author == currentUsername %}
+                                        {{ include('comment/_delete_form.html.twig') }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <p class="text-center">No Q&A found</p>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="new-comment" role="tabpanel" aria-labelledby="new-comment-tab">
+                    {{ include('comment/_form.html.twig') }}
+                </div>
+            </div>
+        <!--comment crud-->
     </div>
     <!--book content-->
 {% endblock %}

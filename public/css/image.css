@@ -13,3 +13,27 @@
     padding: 10px;
 }
 
+#sitemap-img {
+    height: 90%;
+    width: 90%;
+    margin: 50px 50px 50px 0;
+}
+
+.container-fluid {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.flex-column {
+    max-width: 260px;
+}
+
+img {
+    margin: 5px;
+}
+
+.scale {
+    transform: scaleY(1.05);
+    padding-top: 5px;
+}
+

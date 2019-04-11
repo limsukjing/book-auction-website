@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Entity\Comment;
 use App\Form\BookType;
+use App\Form\CommentType;
 use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +41,7 @@ class BookController extends AbstractController
         // set currently logged in user as the seller
         $seller = $this->getUser();
         $book->setSeller($seller);
+        $book->setStatus('active');
 
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
@@ -58,16 +61,50 @@ class BookController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="book_show", methods={"GET"})
+     * @Route("/{id}", name="book_show", methods={"GET","POST"})
      */
-    public function showAction(Book $book): Response
+    public function showAction(Request $request, Book $book): Response
     {
+        $comment = new Comment();
+
         // get currently logged in user
         $user = $this->getUser();
+        $comment->setAuthor($user);
+        $comment->setItem($book);
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($user);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Your comment has been submitted.');
+
+            return $this->render('book/show.html.twig', [
+                'book' => $book,
+                'currentUsername' => $user,
+                'comment' => $comment,
+                'form' => $form->createView(),
+            ]);
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Your comment has been deleted.');
+        }
 
         return $this->render('book/show.html.twig', [
             'book' => $book,
-            'currentUsername' => $user
+            'currentUsername' => $user,
+            'comment' => $comment,
+            'form' => $form->createView(),
         ]);
     }
 

@@ -75,7 +75,9 @@
                     </div>
                     <!--bids container-->
                 {% else %}
-                    <p class="text-center">No active bids</p>
+                    {% if loop.first == true %}
+                        <p class="text-center">No active bids</p>
+                    {% endif %}
                 {% endif %}
             {% else %}
                 <p class="text-center">You haven't placed any bids</p>

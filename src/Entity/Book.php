@@ -77,14 +77,14 @@ class Book
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="book", cascade={"persist", "remove"})
-     */
-    private $highestBidder;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="item")
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="offers")
+     */
+    private $highestBidder;
 
     public function __construct()
     {
@@ -246,18 +246,6 @@ class Book
         return $this;
     }
 
-    public function getHighestBidder(): ?User
-    {
-        return $this->highestBidder;
-    }
-
-    public function setHighestBidder(?User $highestBidder): self
-    {
-        $this->highestBidder = $highestBidder;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -285,6 +273,18 @@ class Book
                 $comment->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHighestBidder(): ?User
+    {
+        return $this->highestBidder;
+    }
+
+    public function setHighestBidder(?User $highestBidder): self
+    {
+        $this->highestBidder = $highestBidder;
 
         return $this;
     }

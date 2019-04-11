@@ -48,20 +48,21 @@ class User implements UserInterface
     private $books;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Book", mappedBy="highestBidder", cascade={"persist", "remove"})
-     */
-    private $book;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author")
      */
     private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Book", mappedBy="highestBidder")
+     */
+    private $offers;
 
     public function __construct()
     {
         $this->bids = new ArrayCollection();
         $this->books = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function __toString()
@@ -200,24 +201,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getBook(): ?Book
-    {
-        return $this->book;
-    }
-
-    public function setBook(?Book $book): self
-    {
-        $this->book = $book;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newHighestBidder = $book === null ? null : $this;
-        if ($newHighestBidder !== $book->getHighestBidder()) {
-            $book->setHighestBidder($newHighestBidder);
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -243,6 +226,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Book[]
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Book $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setHighestBidder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Book $offer): self
+    {
+        if ($this->offers->contains($offer)) {
+            $this->offers->removeElement($offer);
+            // set the owning side to null (unless already changed)
+            if ($offer->getHighestBidder() === $this) {
+                $offer->setHighestBidder(null);
             }
         }
 

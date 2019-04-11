@@ -135,6 +135,7 @@ class BidController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Your bid has been placed - €' . $bid->getAmount() . ' on auction item "' . $book->getTitle() . '"');
+
             return $this->redirectToRoute('bid_index');
         }
 

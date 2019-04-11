@@ -19,3 +19,8 @@ Desktop.ini
 # thumbnail cache files
 ._*
 Thumbs.db
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

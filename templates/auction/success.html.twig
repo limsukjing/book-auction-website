@@ -8,10 +8,10 @@
     <div class="content">
         <h3><span>ALL PAST AUCTIONS</span></h3>
         <div class="bid-crud">
-            <a href="{{ path('auction_index') }}" class="btn-left"><<< View current auctions</a>
+            <a href="{{ path('auction_index') }}" class="btn-right">View current auctions >>></a>
             <p id="space"></p>
 
-            {% for book in books if book.status == "finished" %}
+            {% for book in books|sortbyfield('id', 'desc') if book.status == "finished" %}
                 {% if book.seller.username == currentUsername %}
                     <div class="auction-container">
                         <div class="row">

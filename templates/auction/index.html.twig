@@ -8,7 +8,22 @@
     <div class="content">
         <h3><span>ALL CURRENT AUCTIONS</span></h3>
         <div class="auction-crud">
-            <a href="{{ path('auction_success') }}" class="btn-right">View Past Auctions >>></a>
+            {% set offers = app.session.get('offers') %}
+
+            {% if offers is not null %}
+                {% for offer in offers %}
+                    <br>
+                    <div class="flash-success alert alert-success alert-dismissible fade show" role="alert">
+                         "{{ offer }}" has been offered to user @{{ offer.highestBidder }} - view it in past auctions section
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <a href="{{ path('auction_success') }}" class="btn-left"><<< View Past Auctions</a>
             <p id="space"></p>
 
             {% for book in books if book.status == "active" %}

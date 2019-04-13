@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\BookType;
 use App\Form\CommentType;
 use App\Repository\BookRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,6 +34,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to add book entries.")
      */
     public function newAction(Request $request): Response
     {
@@ -110,6 +112,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to edit book entries.")
      */
     public function editAction(Request $request, Book $book): Response
     {
@@ -132,6 +135,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}", name="book_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to delete book entries.")
      */
     public function deleteAction(Request $request, Book $book): Response
     {

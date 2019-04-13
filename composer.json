@@ -70,6 +70,7 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "^2.5"
+        "codeception/codeception": "^2.5",
+        "symfony/test-pack": "^1.0"
     }
 }

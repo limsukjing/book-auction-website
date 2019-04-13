@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Genre;
 use App\Form\GenreType;
 use App\Repository\GenreRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/new", name="genre_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access Denied: Only users with ROLE_ADMIN are alllowed to add genre entries.")
      */
     public function newAction(Request $request): Response
     {
@@ -60,6 +62,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="genre_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN", message="Access Denied: Only users with ROLE_ADMIN are alllowed to edit genre entries.")
      */
     public function editAction(Request $request, Genre $genre): Response
     {
@@ -82,6 +85,7 @@ class GenreController extends AbstractController
 
     /**
      * @Route("/{id}", name="genre_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN", message="Access Denied: Only users with ROLE_ADMIN are alllowed to delete genre entries.")
      */
     public function deleteAction(Request $request, Genre $genre): Response
     {

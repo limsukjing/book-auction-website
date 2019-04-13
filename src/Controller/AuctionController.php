@@ -6,9 +6,9 @@ use App\Entity\Book;
 use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Route("/auction")
@@ -22,12 +22,11 @@ class AuctionController extends AbstractController
     public function indexAction(BookRepository $bookRepository): Response
     {
         $user = $this->getUser(); // get currently logged in user
-
-        $highestBidder = $bookRepository->findOffers();
+        $offers = $bookRepository->findOffers();
 
         // store highest bidder in session
         $session = new Session();
-        $session->set('offers', $highestBidder);
+        $session->set('offers', $offers);
 
         return $this->render('auction/index.html.twig', [
             'books' => $bookRepository->findAll(),

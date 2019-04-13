@@ -23,6 +23,7 @@ security:
             logout:
                 path: app_logout
                 invalidate_session: true
+                delete_cookies: ~
 
             guard:
                 authenticators:

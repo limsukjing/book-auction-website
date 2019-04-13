@@ -26,7 +26,6 @@ class BookRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.highestBidder IS NOT NULL')
-            ->orderBy('b.id', 'ASC')
             ->getQuery()
             ->getResult();
     }

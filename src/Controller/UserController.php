@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
- * @IsGranted("ROLE_ADMIN", message="Access Denied: Only users with ROLE_ADMIN are alllowed to manage users.")
+ * @IsGranted("ROLE_ADMIN", message="Access Denied: Only users with ROLE_ADMIN are allowed to manage users.")
  */
 class UserController extends AbstractController
 {

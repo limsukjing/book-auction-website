@@ -80,6 +80,35 @@
             <div class="row">
                 <div class="col-sm-12">
                     {% block body %}{% endblock %}
+
+                    <hr>
+                    <div class="footer__item d-lg-flex justify-content-lg-between align-items-lg-center fixed">
+                        <p id="footer-text" class="hidden-sm-down d-none d-lg-block">&copy; Suk Jing Lim <a href="mailto:b00100201@student.itb.ie">B00100201@student.itb.ie</a></p>
+
+                        <ul id="menu-footer" class="nav sub-nav footer__sub-nav">
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a class="footer-link" href="{{ path('homepage') }}">HOME</a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a class="footer-link" href="{{ path('about') }}">ABOUT US</a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a class="footer-link" href="{{ path('genre_index') }}">SHOP BY GENRE</a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a class="footer-link" href="{{ path('book_index') }}">BOOKS</a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                    <a class="footer-link" href="{{ path('user_index') }}">USERS</a>
+                                </li>
+                            {% endif %}
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom">
+                                <a class="footer-link" href="{{ path('sitemap') }}">SITEMAP</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--footer-->
                 </div>
                 <!--col-->
             </div>

@@ -39,3 +39,24 @@
     left: -20px;
     top: 3px;
 }
+
+.footer__item {
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
+#footer-text {
+    margin: 0;
+    padding: 0;
+}
+
+#menu-footer a {
+    padding-left: 30px;
+    color: #808080;
+    text-decoration: none;
+}
+
+#menu-footer a:hover {
+    color: #000000;
+    text-decoration: none;
+}

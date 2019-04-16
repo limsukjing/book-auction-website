@@ -31,6 +31,16 @@ body, .btn {
     text-align: justify;
 }
 
+form {
+    margin-bottom: 100px;
+}
+
+form .btn-margin {
+    position: absolute;
+    right: 140px;
+    bottom: 71px;
+}
+
 /* ----about---- */
 #about-location {
     padding: 30px;

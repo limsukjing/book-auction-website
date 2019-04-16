@@ -6,29 +6,35 @@ use App\Entity\Bid;
 use App\Entity\Book;
 use App\Form\BidType;
 use App\Repository\BidRepository;
+use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/bid")
- * @IsGranted("ROLE_BUYER", message="Access Denied: Only users with ROLE_BUYER are alllowed to participate in bidding.")
+ * @IsGranted("ROLE_BUYER", message="Access Denied: Only users with ROLE_BUYER are allowed to participate in bidding.")
  */
 class BidController extends AbstractController
 {
     /**
      * @Route("/", name="bid_index", methods={"GET"})
      */
-    public function manageBidAction(BidRepository $bidRepository): Response
+    public function manageBidAction(BidRepository $bidRepository, BookRepository $bookRepository): Response
     {
-        // get currently logged in user
-        $user = $this->getUser();
+        $user = $this->getUser(); // get currently logged in user
+        $offers = $bookRepository->findOffers();
+
+        // store highest bidder in session
+        $session = new Session();
+        $session->set('offers', $offers);
 
         return $this->render('bid/index.html.twig', [
             'bids' => $bidRepository->findAll(),
-            'currentUsername' => $user,
+            'currentUsername' => $user
         ]);
     }
 
@@ -53,7 +59,7 @@ class BidController extends AbstractController
     {
         $bid = new Bid();
 
-        $title = $book->getTitle(); // get title of current book
+        $title = $book->getTitle();
         $maxBid = $book->getReservePrice(); // get reserve price of current book
         $bidder = $this->getUser(); // set currently logged in user as the bidder
         $bid->setBuyer($bidder);
@@ -62,9 +68,9 @@ class BidController extends AbstractController
         $form = $this->createForm(BidType::class, $bid);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $currentHighestBid = $bidRepository->findOneBy(['auctionItem' => $book], ['timestamp' => "DESC"]); // find the latest bid
-            $currentBidder= $bidRepository->findOneBy(['buyer' => $bidder]); // find the latest bid
+            $currentBid = $bidRepository->findOneBy(['auctionItem' => $book, 'buyer' => $bidder]);
 
             // previous bids exist
             // compare bid specified by buyer to current highest bid
@@ -76,7 +82,7 @@ class BidController extends AbstractController
                         'id' => $book->getId(),
                     ]);
                 }
-                if(isset($currentBidder)) {
+                if(isset($currentBid)) {
                     $this->addFlash('error', 'Bidding error - duplicate record found for auction item "' . $book->getTitle() . '"');
 
                     return $this->redirectToRoute('bid_index');

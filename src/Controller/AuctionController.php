@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Bid;
 use App\Entity\Book;
 use App\Repository\BookRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/auction")
- * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to monitor auctions.")
+ * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are allowed to monitor auctions.")
  */
 class AuctionController extends AbstractController
 {
@@ -24,9 +24,9 @@ class AuctionController extends AbstractController
         $user = $this->getUser(); // get currently logged in user
         $offers = $bookRepository->findOffers();
 
-        // store highest bidder in session
-        $session = new Session();
-        $session->set('offers', $offers);
+        foreach($offers as $offer) {
+            $this->addFlash('notice', '"' . $offer->getTitle() . '" has been offered to user @' . $offer->getHighestBidder() . ' - view item in past auctions section');
+        }
 
         return $this->render('auction/index.html.twig', [
             'books' => $bookRepository->findAll(),
@@ -42,6 +42,29 @@ class AuctionController extends AbstractController
         $user = $this->getUser(); // get currently logged in user
 
         return $this->render('auction/success.html.twig', [
+            'books' => $bookRepository->findAll(),
+            'currentUsername' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/bid/{id}/accept", name="auction_accept", methods={"GET"})
+     */
+    public function acceptAction(BookRepository $bookRepository, Bid $bid): Response
+    {
+        $user = $this->getUser(); // get currently logged in user
+        $book = $bid->getAuctionItem();
+        $bidder = $bid->getBuyer();
+        $book->setStatus('finished');
+        $book->setHighestBidder($bidder);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        $this->addFlash('notice', '"' . $book->getTitle() . '" has been offered to user @' . $book->getHighestBidder() . ' - view item in past auctions section');
+
+        return $this->render('auction/index.html.twig', [
             'books' => $bookRepository->findAll(),
             'currentUsername' => $user,
         ]);

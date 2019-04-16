@@ -32,7 +32,7 @@ body, .btn {
 }
 
 form {
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 
 form .btn-margin {
@@ -82,11 +82,11 @@ table, .text-center {
 }
 
 .bids-container table {
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 .auction-container table {
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 .auction-action {

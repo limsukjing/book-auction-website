@@ -11,19 +11,15 @@
             <a href="{{ path('auction_success') }}" class="btn-left"><<< View Past Auctions</a>
             <p id="space"></p>
 
-            {% set offers = app.session.get('offers') %}
-
-            {% if offers is not null %}
-                {% for offer in offers if offer.seller.username == currentUsername %}
-                    <br>
-                    <div class="flash-success alert alert-success alert-dismissible fade show" role="alert">
-                        "{{ offer }}" has been offered to user @{{ offer.highestBidder }} - view offer in past auctions section
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                {% endfor %}
-            {% endif %}
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <br>
+                <div class="flash-notice alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ flash_message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
 
             {% for book in books if book.status == "active" %}
                 {% if book.seller.username == currentUsername %}
@@ -45,6 +41,7 @@
                                             <th>Amount</th>
                                             <th>Bidder</th>
                                             <th>Timestamp</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,6 +50,9 @@
                                                     <td>&#8364;{{ bid.amount }}</td>
                                                     <td>{{ bid.buyer.username}}</td>
                                                     <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>
+                                                    <td>
+                                                        <a href="{{ path('auction_accept', {'id': bid.id}) }}" class="book-action btn btn-lg px-3 btn-primary btn-outline-dark btn-sm" role="button">Accept</a>
+                                                    </td>
                                                 </tr>
                                         {% else %}
                                             <tr>

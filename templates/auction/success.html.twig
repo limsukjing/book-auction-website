@@ -35,7 +35,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            {% for bid in book.bids %}
+                                            {% for bid in book.bids if bid.buyer.username == book.highestBidder %}
                                                 <td>&#8364;{{ bid.amount }}</td>
                                                 <td>{{ bid.buyer.username}}</td>
                                                 <td>{{ bid.timestamp ? bid.timestamp|date('d/m/Y') : '' }} at {{ bid.timestamp ? bid.timestamp|date('H:i:s') : '' }}</td>

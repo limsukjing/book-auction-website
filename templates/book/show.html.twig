@@ -14,7 +14,7 @@
                 {% if ('ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '') or ('ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '') or (is_granted('ROLE_BUYER')) %}
                     {% if book.seller.username == currentUsername %}
                         {% if book.status == "finished" %}
-                            <a href="{{ path('auction_show', {'id': book.id}) }}" class="btn-right">View past auction >>></a>
+                            <a href="{{ path('auction_show', {'id': book.id}) }}" class="btn-right">View closed auction >>></a>
                         {% else %}
                             <a href="{{ path('auction_show', {'id': book.id}) }}" class="btn-right">View current auction >>></a>
                         {% endif %}

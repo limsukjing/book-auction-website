@@ -17,7 +17,7 @@ class CommentController extends AbstractController
 {
     /**
      * @Route("/{id}", name="comment_delete", methods={"DELETE"})
-     * @IsGranted("IS_AUTHENTICATED_FULLY", message="Access Denied: Only authorized users are alllowed to manage comment entries.")
+     * @IsGranted("IS_AUTHENTICATED_FULLY", message="Access Denied: Only authorized users are allowed to manage comment entries.")
      */
     public function delete(Request $request, Comment $comment): Response
     {

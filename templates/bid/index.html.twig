@@ -12,6 +12,20 @@
             <a href="{{ path('book_index') }}" class="btn-right">Create new bid >>></a>
             <p id="space"></p>
 
+            {% set offers = app.session.get('offers') %}
+
+            {% if offers is not null %}
+                {% for offer in offers if offer.highestBidder.username == currentUsername %}
+                    <br>
+                    <div class="flash-offer alert alert-warning alert-dismissible fade show" role="alert">
+                        Congratulations! You won the auction item "{{ offer.title }}" - view item in offers section
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
             {% for flash_message in app.session.flashBag.get('success') %}
                 <br>
                 <div class="flash-success alert alert-success alert-dismissible fade show" role="alert">
@@ -44,10 +58,6 @@
                             <div class="col-8">
                                 <table class="table table-hover table-bordered">
                                     <tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <td>{{ loop.index }}</a></td>
-                                        </tr>
                                         <tr>
                                             <th>Auction Item</th>
                                             <td><a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}">{{ bid.auctionItem }}</a></td>

@@ -21,8 +21,8 @@
                 </div>
             {% endfor %}
 
-            {% for bid in bids|sortbyfield('timestamp', 'desc') if bid.buyer.username == currentUsername %}
-                {% if bid.auctionItem.status == "finished" %}
+            {% for bid in bids|sortbyfield('timestamp', 'desc') if bid.auctionItem.highestBidder == currentUsername %}
+                {% if bid.buyer == currentUsername %}
                     <div class="bids-container">
                         <div class="row">
                             <div class="col">
@@ -33,10 +33,6 @@
                             <div class="col-8">
                                 <table class="table table-hover table-bordered">
                                     <tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <td>{{ loop.index }}</a></td>
-                                        </tr>
                                         <tr>
                                             <th>Auction Item</th>
                                             <td><a href="{{ path('book_show', {'id': bid.auctionItem.id}) }}">{{ bid.auctionItem }}</a></td>

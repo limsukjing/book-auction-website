@@ -34,7 +34,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/new", name="book_new", methods={"GET","POST"})
-     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to add book entries.")
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are allowed to add book entries.")
      */
     public function newAction(Request $request): Response
     {
@@ -112,7 +112,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="book_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to edit book entries.")
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are allowed to edit book entries.")
      */
     public function editAction(Request $request, Book $book): Response
     {
@@ -135,7 +135,7 @@ class BookController extends AbstractController
 
     /**
      * @Route("/{id}", name="book_delete", methods={"DELETE"})
-     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are alllowed to delete book entries.")
+     * @IsGranted("ROLE_SELLER", message="Access Denied: Only users with ROLE_SELLER are allowed to delete book entries.")
      */
     public function deleteAction(Request $request, Book $book): Response
     {

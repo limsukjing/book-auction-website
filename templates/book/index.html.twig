@@ -41,7 +41,7 @@
 
                     <tbody>
                         {% for book in books %}
-                            {% if 'ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '' %}
+                            {% if 'ROLE_SELLER' in book.seller.roles ? book.seller.roles|json_encode : '' or 'ROLE_ADMIN' in book.seller.roles ? book.seller.roles|json_encode : '' %}
                                 {% if book.seller.username == currentUsername %}
                                     <tr>
                                         <td>{{ book.id }}</td>
